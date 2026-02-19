@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "https://your-netlify-app.netlify.app",
+  origin: "https://resume-jx4frb2bi-fahad114433s-projects.vercel.app/",
   credentials: true
 }));
 app.use(express.json());
