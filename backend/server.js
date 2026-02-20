@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "https://your-frontend.vercel.app",
+  origin: "https://resume-six-plum-53.vercel.app",
   credentials: true
 }));
 
