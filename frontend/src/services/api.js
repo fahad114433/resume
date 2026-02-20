@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://thriving-stillness.railway.app"
+  baseURL: "/api"
 });
 
 // Add token automatically
