@@ -1,11 +1,54 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function ResumePreview() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [resume, setResume] = useState(null);
+  const resumeRef = useRef();
+
+
+
+
+  const handleDownloadPDF = async () => {
+    const element = resumeRef.current;
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const imgWidth = 210;
+    const pageHeight = 295;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("resume.pdf");
+  };
+
+
+
+
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -21,13 +64,26 @@ export default function ResumePreview() {
   if (!resume) return <p>Loading...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white rounded shadow mt-6">
-      <button
-        className="mb-4 text-white bg-gray-700 px-5 py-2"
-        onClick={() => navigate("/")}
-      >
-        ← Back to Dashboard
-      </button>
+
+    <div
+      ref={resumeRef}
+      className="max-w-4xl mx-auto p-8 rounded shadow mt-6 bg-white text-black"
+    >
+      <div className="flex gap-4 mb-4">
+        <button
+          className="text-white bg-gray-700 px-5 py-2 rounded"
+          onClick={() => navigate("/")}
+        >
+          ← Back to Dashboard
+        </button>
+
+        <button
+          onClick={handleDownloadPDF}
+          className="bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700 transition"
+        >
+          Download PDF
+        </button>
+      </div>
 
       <h1 className="text-3xl font-bold mb-4">Resume Preview</h1>
 
