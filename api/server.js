@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import authRoutes from "./routes/authRoute.js"; 
-import resumeRoutes from "./routes/resumeRoute.js";
+import authRoutes from "../backend/routes/authRoute.js"; 
+import resumeRoutes from "../backend/routes/resumeRoute.js";
 
 dotenv.config();
 
@@ -16,6 +16,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+app.options("*", cors());
 
 app.use(express.json());;
 
