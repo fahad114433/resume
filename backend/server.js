@@ -9,11 +9,7 @@ dotenv.config();
 
 const app = express();
 
-
-app.use(cors({
-
-}));
-
+app.use(cors());
 
 app.use(express.json());;
 
@@ -28,4 +24,4 @@ app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
 
 
-export default app;
+app.listen(5000, () => console.log("Server running on port 5000"));
