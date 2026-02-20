@@ -27,8 +27,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-app.use("/api/auth", authRoutes);
-app.use("/api/resume", resumeRoutes);
+app.use("/auth", authRoutes);
+app.use("/resume", resumeRoutes);
 
 
 export default app;
