@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "/api", 
+  baseURL: "https://resume-n22h-4fl3tx2ea-fahad114433s-projects.vercel.app", 
 });
 
 // Add token automatically
