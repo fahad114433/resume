@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
-import { useRef } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -11,26 +10,15 @@ export default function ResumePreview() {
   const [resume, setResume] = useState(null);
   const resumeRef = useRef();
 
-
-
-
   const handleDownloadPDF = async () => {
     const element = resumeRef.current;
-
-    const canvas = await html2canvas(element, {
-      scale: 2,
-    });
-
+    const canvas = await html2canvas(element, { scale: 2 });
     const imgData = canvas.toDataURL("image/png");
-
     const pdf = new jsPDF("p", "mm", "a4");
-
     const imgWidth = 210;
     const pageHeight = 295;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
     let heightLeft = imgHeight;
-
     let position = 0;
 
     pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
@@ -42,13 +30,8 @@ export default function ResumePreview() {
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
     }
-
     pdf.save("resume.pdf");
   };
-
-
-
-
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -61,111 +44,104 @@ export default function ResumePreview() {
     };
     fetchResume();
   }, [id]);
-  if (!resume) return <p>Loading...</p>;
+
+  if (!resume) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-
-    <div
-      ref={resumeRef}
-      className="max-w-4xl mx-auto p-8 rounded shadow mt-6 bg-white text-black"
-    >
-      <div className="flex gap-4 mb-4">
-        <button
-          className="text-white bg-gray-700 px-5 py-2 rounded"
-          onClick={() => navigate("/")}
-        >
-          ← Back to Dashboard
-        </button>
-
-        <button
-          onClick={handleDownloadPDF}
-          className="bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700 transition"
-        >
-          Download PDF
-        </button>
+    <div className="max-w-4xl mx-auto p-6 md:p-10 bg-white shadow-xl rounded-xl mt-8 font-sans text-gray-800" ref={resumeRef}>
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold">{resume.name || "Your Name"}</h1>
+        <div className="flex gap-3">
+          <button
+            className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition"
+            onClick={() => navigate("/")}
+          >
+            ← Dashboard
+          </button>
+          <button
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+            onClick={handleDownloadPDF}
+          >
+            Download PDF
+          </button>
+        </div>
       </div>
 
-      <h1 className="text-3xl font-bold mb-4">Resume Preview</h1>
+      {/* Contact Info */}
+      <div className="flex flex-wrap gap-4 text-gray-600 mb-6">
+        {resume.email && <p>Email: {resume.email}</p>}
+        {resume.phone && <p>Phone: {resume.phone}</p>}
+        {resume.linkedin && <p>LinkedIn: <a href={resume.linkedin} className="text-blue-600" target="_blank">{resume.linkedin}</a></p>}
+        {resume.website && <p>Website: <a href={resume.website} className="text-blue-600" target="_blank">{resume.website}</a></p>}
+      </div>
 
-      <section className="mb-4">
-        <h2 className="text-2xl font-semibold  pb-2 mb-3">
-          Professional Summary
-        </h2>
-        <hr />
-        <p className="text-gray-700 leading-relaxed">
-          {resume.summary || "No summary added."}
-        </p>
+      {/* Summary */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Professional Summary</h2>
+        <p className="text-gray-700 leading-relaxed">{resume.summary || "No summary added."}</p>
       </section>
 
-
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">Experience</h2>
-        <hr />
+      {/* Experience */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Experience</h2>
         {resume.experience.map((exp, i) => (
-          <div key={i} className="mb-2">
-            <p className="font-semibold text-xl">{exp.role} {exp.company}</p>
-            <p>{exp.description}</p>
+          <div key={i} className="mb-4">
+            <p className="font-semibold text-lg">{exp.role} <span className="text-gray-500">@ {exp.company}</span></p>
+            <p className="text-gray-700">{exp.description}</p>
           </div>
         ))}
       </section>
 
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">Skills</h2>
-        <hr />
-        <p>{resume.skills.join(", ")}</p>
+      {/* Skills */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Skills</h2>
+        <div className="flex flex-wrap gap-2">
+          {resume.skills.map((skill, i) => (
+            <span key={i} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm">{skill}</span>
+          ))}
+        </div>
       </section>
 
-
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">
-          Education
-        </h2>
-        <hr />
-        {(!resume.education || resume.education.length === 0) && (
-          <p className="text-gray-500">No education added.</p>
-        )}
-
+      {/* Education */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Education</h2>
+        {resume.education?.length === 0 && <p className="text-gray-500">No education added.</p>}
         {resume.education?.map((edu, i) => (
-          <div key={i} className="mb-4  break-words">
-            <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
-            <p className="text-gray-600">
-              {edu.institution || ""}
-              {edu.year ? ` (${edu.year})` : ""}
-            </p>
-            {edu.description && (
-              <p className="text-gray-500 mt-1">{edu.description}</p>
-            )}
+          <div key={i} className="mb-4">
+            <p className="font-semibold">{edu.degree || "Degree not specified"}</p>
+            <p className="text-gray-600">{edu.institution || ""}{edu.year ? ` (${edu.year})` : ""}</p>
+            {edu.description && <p className="text-gray-500 mt-1">{edu.description}</p>}
           </div>
         ))}
       </section>
 
-
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">Projects</h2>
-        <hr />
+      {/* Projects */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Projects</h2>
         {resume.projects.map((proj, i) => (
-          <div key={i}>
+          <div key={i} className="mb-3">
             <p className="font-semibold">{proj.title}</p>
-            <p>{proj.description}</p>
-            {proj.link && <a href={proj.link} className="text-blue-500" target="_blank">Link</a>}
+            <p className="text-gray-700">{proj.description}</p>
+            {proj.link && <a href={proj.link} target="_blank" className="text-blue-600 underline">{proj.link}</a>}
           </div>
         ))}
       </section>
 
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">Certifications</h2>
-        <hr />
+      {/* Certifications */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Certifications</h2>
         {resume.certifications.map((cert, i) => (
-          <p key={i}>{cert.title} {cert.issuer && `(${cert.issuer})`}</p>
+          <p key={i} className="text-gray-700">{cert.title} {cert.issuer && `(${cert.issuer})`}</p>
         ))}
       </section>
 
-      <section className="mb-4">
-        <h2 className="text-3xl font-semibold mb-2">References</h2>
-        <hr />
+      {/* References */}
+      <section className="mb-6">
+        <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">References</h2>
         {resume.references.map((ref, i) => (
-          <p key={i} className="break-words">
-            {ref.name || "Name not provided"}  {ref.contact || "Contact not provided"}
+          <p key={i} className="text-gray-700 break-words">
+            {ref.name || "Name not provided"} | {ref.contact || "Contact not provided"}
           </p>
         ))}
       </section>
