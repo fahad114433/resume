@@ -126,10 +126,11 @@ export default function ResumePreview() {
         )}
 
         {resume.education?.map((edu, i) => (
-          <div key={i} className="mb-4 p-4   overflow-hidden break-words">
+          <div key={i} className="mb-4 p-4 break-words">
             <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
-              {edu.institution || ""} {edu.year ? `(${edu.year})` : ""}
+              {edu.institution || ""}
+              {edu.year ? ` (${edu.year})` : ""}
             </p>
             {edu.description && (
               <p className="text-gray-500 mt-1">{edu.description}</p>
@@ -163,7 +164,9 @@ export default function ResumePreview() {
         <h2 className="text-3xl font-semibold mb-2">References</h2>
         <hr />
         {resume.references.map((ref, i) => (
-          <p key={i}>{ref.name} - {ref.contact}</p>
+          <p key={i} className="break-words">
+            {ref.name || "Name not provided"} - {ref.contact || "Contact not provided"}
+          </p>
         ))}
       </section>
     </div>
