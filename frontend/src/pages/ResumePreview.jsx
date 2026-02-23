@@ -103,7 +103,7 @@ export default function ResumePreview() {
         <hr />
         {resume.experience.map((exp, i) => (
           <div key={i} className="mb-2">
-            <p className="font-semibold text-xl">{exp.role} at {exp.company}</p>
+            <p className="font-semibold text-xl">{exp.role} {exp.company}</p>
             <p>{exp.description}</p>
           </div>
         ))}
@@ -126,7 +126,7 @@ export default function ResumePreview() {
         )}
 
         {resume.education?.map((edu, i) => (
-          <div key={i} className="mb-4 p-4 break-words">
+          <div key={i} className="mb-4  break-words">
             <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
               {edu.institution || ""}
@@ -165,7 +165,7 @@ export default function ResumePreview() {
         <hr />
         {resume.references.map((ref, i) => (
           <p key={i} className="break-words">
-            {ref.name || "Name not provided"} - {ref.contact || "Contact not provided"}
+            {ref.name || "Name not provided"}  {ref.contact || "Contact not provided"}
           </p>
         ))}
       </section>
