@@ -23,6 +23,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/builder" element={<ProtectedRoute><ResumeBuilder /></ProtectedRoute>} />
         <Route path="/preview/:id" element={<ProtectedRoute><ResumePreview /></ProtectedRoute>} />
+        <Route path="/builder/:id" element={<ProtectedRoute><Builder /></ProtectedRoute>} /> {/* For editing */}
 
       </Routes>
       
