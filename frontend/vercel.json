@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://thriving-stillness.railway.app/:path*"
+      "destination": "https://resume-production-aaab.up.railway.app/:path*"
     },
     {
       "source": "/(.*)",

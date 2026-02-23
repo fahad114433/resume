@@ -20,8 +20,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-app.use("/auth", authRoutes);
-app.use("/resume", resumeRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/resume", resumeRoutes);
 
 
 const PORT = process.env.PORT || 5000;
