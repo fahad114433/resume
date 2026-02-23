@@ -87,7 +87,7 @@ export default function ResumePreview() {
 
       <h1 className="text-3xl font-bold mb-4">Resume Preview</h1>
 
-      <section className="mb-8">
+      <section className="mb-4">
         <h2 className="text-2xl font-semibold  pb-2 mb-3">
           Professional Summary
         </h2>
@@ -116,7 +116,7 @@ export default function ResumePreview() {
       </section>
 
 
-      <section className="mb-8 px-4">
+      <section className="mb-4">
         <h2 className="text-3xl font-semibold mb-2">
           Education
         </h2>
@@ -129,7 +129,7 @@ export default function ResumePreview() {
           <div key={i} className="mb-4 p-4   overflow-hidden break-words">
             <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
-              {edu.institution || "Institution not specified"} ({edu.year || "Year not specified"})
+              {edu.institution || ""} {edu.year ? `(${edu.year})` : ""}
             </p>
             {edu.description && (
               <p className="text-gray-500 mt-1">{edu.description}</p>
