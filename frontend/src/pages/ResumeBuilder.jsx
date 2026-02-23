@@ -82,7 +82,7 @@ export default function ResumeBuilder() {
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-10">
-
+          {/* ================= summary================= */}
           <div className="mb-6">
             <label className="block font-semibold mb-2">Professional Summary</label>
             <textarea
@@ -174,7 +174,7 @@ export default function ResumeBuilder() {
               + Add Skill
             </button>
           </div>
-
+          {/* ================= Education ================= */}
           <div className="space-y-4">
             <h2 className="text-xl font-bold mt-6 mb-3">Education</h2>
 

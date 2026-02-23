@@ -115,7 +115,7 @@ export default function ResumePreview() {
       </section>
 
 
-      <section className="mb-8">
+      <section className="mb-8 px-4">
         <h2 className="text-2xl font-semibold border-b pb-2 mb-3">
           Education
         </h2>
@@ -125,7 +125,7 @@ export default function ResumePreview() {
         )}
 
         {resume.education?.map((edu, i) => (
-          <div key={i} className="mb-4 p-4 border rounded-lg">
+          <div key={i} className="mb-4 p-4 border rounded-lg overflow-hidden break-words">
             <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
               {edu.institution || "Institution not specified"} ({edu.year || "Year not specified"})
@@ -154,7 +154,7 @@ export default function ResumePreview() {
         <h2 className="text-3xl font-semibold mb-2">Certifications</h2>
         <hr />
         {resume.certifications.map((cert, i) => (
-          <p key={i}>{cert.title} ({cert.issuer})</p>
+         <p key={i}>{cert.title} {cert.issuer && `(${cert.issuer})`}</p>
         ))}
       </section>
 
