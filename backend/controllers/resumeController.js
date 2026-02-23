@@ -3,12 +3,14 @@ import Resume from "../models/resume.js";
 // CREATE NEW RESUME
 export const createResume = async (req, res) => {
   try {
-    const { experience, skills, projects, certifications, references } = req.body;
+    const { summary, experience, skills, education, projects, certifications, references } = req.body;
 
     const resume = await Resume.create({
       user: req.user._id, // From auth middleware
+      summary,
       experience,
       skills,
+      education,
       projects,
       certifications,
       references,
@@ -45,6 +47,57 @@ export const getResumeById = async (req, res) => {
     }
 
     res.json(resume);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+// UPDATE RESUME
+export const updateResume = async (req, res) => {
+  try {
+    const resume = await Resume.findById(req.params.id);
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    // Check ownership
+    if (resume.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    const updatedResume = await Resume.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body },
+      { new: true }
+    );
+
+    res.json(updatedResume);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+// DELETE RESUME
+export const deleteResume = async (req, res) => {
+  try {
+    const resume = await Resume.findById(req.params.id);
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    if (resume.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    await Resume.findByIdAndDelete(req.params.id);
+
+    res.json({ message: "Resume deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
