@@ -117,7 +117,7 @@ export default function ResumePreview() {
 
 
       <section className="mb-8 px-4">
-        <h2 className="text-2xl font-semibold pb-2 mb-3">
+        <h2 className="text-3xl font-semibold mb-2">
           Education
         </h2>
         <hr />
@@ -126,7 +126,7 @@ export default function ResumePreview() {
         )}
 
         {resume.education?.map((edu, i) => (
-          <div key={i} className="mb-4 p-4 border rounded-lg overflow-hidden break-words">
+          <div key={i} className="mb-4 p-4   overflow-hidden break-words">
             <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
               {edu.institution || "Institution not specified"} ({edu.year || "Year not specified"})
