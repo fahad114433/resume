@@ -88,9 +88,10 @@ export default function ResumePreview() {
       <h1 className="text-3xl font-bold mb-4">Resume Preview</h1>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold border-b pb-2 mb-3">
+        <h2 className="text-2xl font-semibold  pb-2 mb-3">
           Professional Summary
         </h2>
+        <hr />
         <p className="text-gray-700 leading-relaxed">
           {resume.summary || "No summary added."}
         </p>
@@ -116,10 +117,10 @@ export default function ResumePreview() {
 
 
       <section className="mb-8 px-4">
-        <h2 className="text-2xl font-semibold border-b pb-2 mb-3">
+        <h2 className="text-2xl font-semibold pb-2 mb-3">
           Education
         </h2>
-
+        <hr />
         {(!resume.education || resume.education.length === 0) && (
           <p className="text-gray-500">No education added.</p>
         )}
@@ -154,7 +155,7 @@ export default function ResumePreview() {
         <h2 className="text-3xl font-semibold mb-2">Certifications</h2>
         <hr />
         {resume.certifications.map((cert, i) => (
-         <p key={i}>{cert.title} {cert.issuer && `(${cert.issuer})`}</p>
+          <p key={i}>{cert.title} {cert.issuer && `(${cert.issuer})`}</p>
         ))}
       </section>
 
