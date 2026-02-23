@@ -120,19 +120,19 @@ export default function ResumePreview() {
           Education
         </h2>
 
-        {resume.education.length === 0 && (
+        {(!resume.education || resume.education.length === 0) && (
           <p className="text-gray-500">No education added.</p>
         )}
 
-        {resume.education.map((edu, i) => (
+        {resume.education?.map((edu, i) => (
           <div key={i} className="mb-4 p-4 border rounded-lg">
-            <p className="font-semibold text-lg">
-              {edu.degree}
-            </p>
+            <p className="font-semibold text-lg">{edu.degree || "Degree not specified"}</p>
             <p className="text-gray-600">
-              {edu.institution} ({edu.year})
+              {edu.institution || "Institution not specified"} ({edu.year || "Year not specified"})
             </p>
-            <p className="text-gray-500 mt-1">{edu.description}</p>
+            {edu.description && (
+              <p className="text-gray-500 mt-1">{edu.description}</p>
+            )}
           </div>
         ))}
       </section>
