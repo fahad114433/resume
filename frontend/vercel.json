@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://thriving-stillness.railway.app/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
