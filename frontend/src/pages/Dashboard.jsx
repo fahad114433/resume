@@ -55,7 +55,7 @@ export default function Dashboard() {
               No resumes yet
             </h2>
             <p className="text-gray-500 mb-6">
-              Start building your professional resume now 🚀
+              Start building your professional resume now 
             </p>
             <button
               onClick={() => navigate("/builder")}
