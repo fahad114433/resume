@@ -48,6 +48,7 @@ export default function ResumePreview() {
   if (!resume) return <p className="text-center mt-10">Loading...</p>;
 
   return (
+    
     <div className="max-w-4xl mx-auto p-6 md:p-10 bg-white shadow-xl rounded-xl mt-8 font-sans text-gray-800" ref={resumeRef}>
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
@@ -87,7 +88,7 @@ export default function ResumePreview() {
         <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Experience</h2>
         {resume.experience.map((exp, i) => (
           <div key={i} className="mb-4">
-            <p className="font-semibold text-lg">{exp.role} <span className="text-gray-500">@ {exp.company}</span></p>
+            <p className="font-semibold text-lg">{exp.role} <span className="text-gray-500"> {exp.company}</span></p>
             <p className="text-gray-700">{exp.description}</p>
           </div>
         ))}
