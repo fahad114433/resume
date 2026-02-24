@@ -88,7 +88,8 @@ export default function ResumePreview() {
         <h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-2 mb-3">Experience</h2>
         {resume.experience.map((exp, i) => (
           <div key={i} className="mb-4">
-            <p className="font-semibold text-lg">{exp.role} <span className="text-gray-500"> {exp.company}</span></p>
+            <p className="font-semibold text-lg">{exp.role} </p>
+            <p className="text-gray-500"> {exp.company}</p>
             <p className="text-gray-700">{exp.description}</p>
           </div>
         ))}
