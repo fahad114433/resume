@@ -3,10 +3,15 @@ import Resume from "../models/resume.js";
 // CREATE NEW RESUME
 export const createResume = async (req, res) => {
   try {
-    const { summary, experience, skills, education, projects, certifications, references } = req.body;
+    const {name, email, phone,linkedin,website, summary, experience, skills, education, projects, certifications, references } = req.body;
 
     const resume = await Resume.create({
       user: req.user._id, // From auth middleware
+      name,
+      email,
+      phone,
+      linkedin,
+      website,
       summary,
       experience,
       skills,

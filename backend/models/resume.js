@@ -2,14 +2,28 @@ import mongoose from "mongoose";
 
 const resumeSchema = new mongoose.Schema(
   {
+
+
+    template: {
+      type: String,
+      default: "modern",
+      enum: ["executive", "modern", "minimal", "creative", "corporate", "elegant"],
+    },
+
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-     summary: {
-    type: String,
-  },
+    name: { type: String },
+    email: { type: String },
+    phone: { type: String },
+    linkedin: { type: String },
+    website: { type: String },
+    summary: {
+      type: String,
+    },
     experience: [
       {
         company: String,
@@ -27,15 +41,15 @@ const resumeSchema = new mongoose.Schema(
         link: String,
       },
     ],
-    
-  education: [
-    {
-      degree: String,
-      institution: String,
-      year: String,
-      description: String,
-    },
-  ],
+
+    education: [
+      {
+        degree: String,
+        institution: String,
+        year: String,
+        description: String,
+      },
+    ],
     certifications: [
       {
         title: String,

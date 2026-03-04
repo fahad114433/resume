@@ -8,8 +8,16 @@ import resumeRoutes from "./routes/resumeRoute.js";
 dotenv.config();
 
 const app = express();
-
-app.use(cors());
+// ✅ Add this in your express server
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups"); // ✅ allows Google popup
+  res.setHeader("Cross-Origin-Embedder-Policy", "unsafe-none");
+  next();
+});
+app.use(cors({
+  origin: "http://localhost:5173", // ✅ explicit origin
+  credentials: true,
+}));
 
 app.use(express.json());;
 
@@ -22,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;
