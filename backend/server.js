@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors({
-  origin: "http://localhost:5173", // ✅ explicit origin
+  origin: "https://resume-six-plum-53.vercel.app/", // ✅ explicit origin
   credentials: true,
 }));
 
