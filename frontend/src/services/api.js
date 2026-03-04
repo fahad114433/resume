@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-baseURL:"resume-production-aaab.up.railway.app",
+baseURL:"https://resume-production-aaab.up.railway.app",
   //baseURL: "/api",
 });
 
