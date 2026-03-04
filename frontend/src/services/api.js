@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-baseURL:"https://resume-production-aaab.up.railway.app",
-  //baseURL: "/api",
+// baseURL:"https://resume-production-aaab.up.railway.app",
+  baseURL: "/api",
 });
 
 // Add token automatically
